@@ -2,15 +2,18 @@
 titulo.addEventListener("click", function(){
     titulo.textContent = "Mudei!";
 })*/
+//teste
 $(".titulo").click(function(){
     $(".titulo").text("Mudei!");
 });
 
+//seleciona todas as trs do 1ª formulario
 var pacientes = document.querySelectorAll(".paciente");
 
 for (var i = 0; i < pacientes.length; i++) {
 
     var paciente = pacientes[i];
+  
   
     var tdPeso = paciente.querySelector(".info-peso");
     var peso = tdPeso.textContent;
@@ -18,14 +21,13 @@ for (var i = 0; i < pacientes.length; i++) {
     var tdAltura = paciente.querySelector('.info-altura');
     var altura = tdAltura.textContent;
 
-    var imc = peso / (altura * altura);
-
+ 
     var tdImc = paciente.querySelector(".info-imc");
-    tdImc.textContent = imc
+    console.log(tdImc);
+   // var imc = tdImc.textContent;
 
     var pesoEhValido = true;
     var alturaEhValida = true;
-
 
 
     if (peso <= 0 || peso >= 1000) {
@@ -41,14 +43,15 @@ for (var i = 0; i < pacientes.length; i++) {
     }
 
     if (alturaEhValida && pesoEhValido) {
-        var imc = peso / (altura * altura);
-        tdImc.textContent = imc;
+        var imc = calculaImc(peso, altura);
+        tdImc.textContent = imc;//passa para o campo html o valor do calculo 
+        }
     }
-}
-function calculaImc(peso, altura) {
-    var imc = 0;
 
-    imc = peso / (altura * altura);
+    function calculaImc(peso, altura) {
+        var imc = 0;
 
-    return imc.toFixed(2);
-}
+        imc = peso / (altura * altura);
+
+        return imc.toFixed(2);
+    }
