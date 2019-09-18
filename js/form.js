@@ -5,39 +5,18 @@ botaoAdicionar.addEventListener("click", function(event){
     event.preventDefault();
     
     var form = document.querySelector("#form-adiciona");
-    // Extrai as informacoes do paciente do form
+
 
     var paciente = obtemPacienteDoFormulario(form);
     
-    //cria os novos elementos
-    var pacienteTr = document.createElement("tr");
-    var nomeTd = document.createElement("td");
-    var pesoTd = document.createElement("td");
-    var alturaTd = document.createElement("td");
-    var gorduraTd = document.createElement("td");
-    var imcTd = document.createElement("td");
-    
-    //atribui as variáveis criadas acima, os valores do objeto paciente(que se encontra dentro da função)
-    nomeTd.textContent = paciente.nome;
-    pesoTd.textContent = paciente.peso;
-    alturaTd.textContent = paciente.altura;
-    gorduraTd.textContent = paciente.gordura;
-    imcTd.textContent = paciente.imc;
+    var pacienteTr = montaTr(paciente);
 
-    //adiciona todas as tds dentro da tr
-    pacienteTr.appendChild(nomeTd);
-    pacienteTr.appendChild(pesoTd);
-    pacienteTr.appendChild(alturaTd);
-    pacienteTr.appendChild(gorduraTd);
-    pacienteTr.appendChild(imcTd);
-
-    //acrescenta a tr c/ as tds dentro da tabela já existente
     var tabela = document.querySelector("#tabela-pacientes");
     tabela.appendChild(pacienteTr);
 });
 
 function obtemPacienteDoFormulario(form){
-    //Atribui os valores do form p/ as novas variáveis criadas
+
     var paciente = {
         nome: form.nome.value,
         peso: form.peso.value,
@@ -47,4 +26,34 @@ function obtemPacienteDoFormulario(form){
     }
     
     return paciente;
+}
+
+function montaTr(paciente) {
+
+    var pacienteTr = document.createElement("tr");
+    pacienteTr.classList.add("paciente");
+
+    var nomeTd = montaTd(paciente.nome, "info-nome");
+    var pesoTd = montaTd(paciente.peso, "info-peso");
+    var alturaTd = montaTd(paciente.altura, "info-altura");
+    var gorduraTd = montaTd(paciente.gordura, "info-gordura");
+    var imcTd = montaTd(paciente.imc, "info-imc");
+
+
+    pacienteTr.appendChild(nomeTd);
+    pacienteTr.appendChild(pesoTd);
+    pacienteTr.appendChild(alturaTd);
+    pacienteTr.appendChild(gorduraTd);
+    pacienteTr.appendChild(imcTd);
+    
+
+    return pacienteTr;
+}
+
+function montaTd(dado,classe){
+    var td = document.createElement("td");
+    td.textContent = dado;
+    td.classList.add(classe);
+
+    return td;
 }
